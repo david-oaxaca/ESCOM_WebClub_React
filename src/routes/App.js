@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import IndexContainer from '../containers/IndexContainer';
 import WelcomeContainer from '../containers/WelcomeContainer';
+import RFCContainer from '../containers/RFCContainer';
 
 const App = () =>{
     
@@ -14,6 +15,9 @@ const App = () =>{
                 </Route>
                 <Route path="/welcome">
                     <WelcomeContainer/>
+                </Route>
+                <Route path="/rfc">
+                    <RFCContainer/>
                 </Route>
                 <Route>
                     <div className="container mt-5 text-center">
