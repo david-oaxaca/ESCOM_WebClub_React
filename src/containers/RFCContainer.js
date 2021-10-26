@@ -10,25 +10,28 @@ const RFCContainer = () =>{
                         "KAGA", "KOGE", "KOGE", "KAKA", "MAME", "MEAR", "MEON", "MOCO", "PEDA", "PENE",
                         "PUTO", "RATA"];
 
+    function censurar_RFC(rfc_inicio){
+        var rfc_retorno = rfc_inicio;
+        for(var i = 0; i < censuradas.length; i++){
+            if(rfc_inicio === censuradas[i]){
+                rfc_retorno = rfc_inicio.substring(0, 3) + "X";
+            }
+        }
+        return rfc_retorno;
+    }
+
     const onChange = (e) =>{
         let name = e.target.name;
         let value = String(e.target.value).toUpperCase();
         setForm({...form, [name]:value});
-
-        
-        let rfc_inicio = rfc.substring(0, 4);
-        for(var i = 0; i < censuradas.length; i++){
-            if(rfc_inicio === censuradas[i]){
-                setRFC(rfc.substring(0, 3) + "X" + rfc.substring(4, 14));
-            }
-        }
 
         if( name === "nombre"){
             let sub1 = rfc.substring(0, 3);
             let sub2 = rfc.substring(4, 14);
             if(value.length === 1){
                 let nombre = value.substring(0, 1);
-                setRFC( sub1 + nombre + sub2);
+                let sub_inicio = censurar_RFC(sub1 + nombre)
+                setRFC( sub_inicio + sub2);
             }else if(value.length < 2){
                 setRFC(sub1 + "*" + sub2);
             }
@@ -36,7 +39,9 @@ const RFCContainer = () =>{
             let sub = rfc.substring(2,14);
             if(value.length === 2){
                 let paterno = value.substring(0, 2);
-                setRFC( paterno + "" + sub );
+                let sub_inicio = censurar_RFC(paterno + rfc.substring(2,4))
+                setRFC( sub_inicio + rfc.substring(4,14));
+                //setRFC( paterno + "" + sub );
             }else if(value.length < 2){
                 setRFC("**" + sub);
             }
@@ -45,7 +50,9 @@ const RFCContainer = () =>{
             let sub2 = rfc.substring(3, 14);
             if(value.length === 1){
                 let materno = value.substring(0, 1);
-                setRFC( sub1 + materno + sub2);
+                let sub_inicio = censurar_RFC(sub1 + materno + rfc.substring(3,4))
+                setRFC( sub_inicio + rfc.substring(4,14));
+                //setRFC( sub1 + materno + sub2);
             }else if(value.length < 2){
                 setRFC(sub1 + "*" + sub2);
             }
